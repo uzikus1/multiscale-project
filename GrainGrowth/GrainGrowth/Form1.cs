@@ -5,6 +5,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace GrainGrowth
@@ -22,6 +23,7 @@ namespace GrainGrowth
         Color[,] nextcolor = null;
         List<String> lines = null;
         List<Point> borderPoints = null;
+        List<Point> allPoints = null;
         List<ColorCount> colorAmounts = null;
         List<ColorCount> mostFrequentList = null;
         List<Color> forbiddenColors = null;
@@ -33,14 +35,16 @@ namespace GrainGrowth
         Random _rand;
         Graphics g;
         Bitmap bmp;
+        //SolidBrush b;
 
         //misc
-        Timer t;
+        Thread mcThread;
+        System.Windows.Forms.Timer t;
         Color randomColor;
         /*, mostFrequentList*/
         uint table_iter, rand_num;
-        int rand_x, rand_y, spotAmount;
-        bool isFinished;
+        int rand_x, rand_y, spotAmount, mcCurrentStep, mcCheckedCells;
+        bool isFinished, isActive;
         bool[] currentNeigh, mooreNeigh, nearestNeigh, furtherNeigh;
         Color mostFrequent = new Color();
         bool foundColor = false;
@@ -67,7 +71,7 @@ namespace GrainGrowth
             defaultColor = Color.White;
             inclusionColor = Color.Black;
             _rand = new Random();
-            t = new Timer
+            t = new System.Windows.Forms.Timer
             {
                 Interval = 15
             };
@@ -91,10 +95,12 @@ namespace GrainGrowth
                 true, false, true
             };
 
-            ColumnHeader header = new ColumnHeader();
-            header.Text = "Grains";
-            header.Name = "col1";
-            header.Width = 50;
+            ColumnHeader header = new ColumnHeader
+            {
+                Text = "Grains",
+                Name = "col1",
+                Width = 50
+            };
             //header.Height = 50;
             lv_SelectedPoints.Columns.Add(header);
 
@@ -109,6 +115,8 @@ namespace GrainGrowth
             lines = new List<String>();
             borderPoints = new List<Point>();
             colorAmounts = new List<ColorCount>();
+            allPoints = new List<Point>();
+            GenerateNewPoints();
 
             state = new bool[sizeX, sizeY];
             color = new Color[sizeX, sizeY];
@@ -120,13 +128,19 @@ namespace GrainGrowth
 
             //init gfx
             bmp = new Bitmap(sizeX, sizeY);
+            b = new SolidBrush(defaultColor);
             ClearBoard(); 
 
             //init misc
             isFinished = false;
+            isActive = false;
             currentNeigh = new bool[] { false, false, false, false, false, false, false, false, false };
             table_iter = 0;
             spotAmount = 0;
+            mcCurrentStep = 0;
+            mcCheckedCells = 0;
+            lab_MCCurrentStep.Text = "Finished steps: 0";
+            lab_MCCheckedCells.Text = "Checked cells: 0";
             tempColors = new List<Color>();
             eachColor = new List<Color>();
             mostFrequentList = new List<ColorCount>();
@@ -296,7 +310,7 @@ namespace GrainGrowth
         }
 
         //borders
-        private void FindBorderNeighbor(bool[] neigh, int a, int b)
+        private void FindBorderNeighbor(bool[] neigh, int a, int b, bool isMC)
         {
             for (int m = a - 1; m <= a + 1; m++)
                 for (int n = b - 1; n <= b + 1; n++)
@@ -307,14 +321,15 @@ namespace GrainGrowth
                     table_iter++;
                 }
             table_iter = 0;
-            tempColors = tempColors.Distinct().ToList();
+            if(isMC == false)
+                tempColors = tempColors.Distinct().ToList();
         }
         private void BorderEveryDetection()
         {
             for (int i = 0; i < sizeX; i++)
                 for (int j = 0; j < sizeY; j++)
                 {
-                    FindBorderNeighbor(mooreNeigh, i, j);
+                    FindBorderNeighbor(mooreNeigh, i, j, false);
                     SetEveryBordering(i, j);
                 }
         }
@@ -354,7 +369,7 @@ namespace GrainGrowth
             for (int i = 0; i < sizeX; i++)
                 for (int j = 0; j < sizeY; j++)
                 {
-                    FindBorderNeighbor(mooreNeigh, i, j);
+                    FindBorderNeighbor(mooreNeigh, i, j, false);
                     SetSingleBordering(i, j, c);
                 }
             
@@ -409,7 +424,7 @@ namespace GrainGrowth
             for (int i = 0; i < sizeX; i++)
                 for (int j = 0; j < sizeY; j++)
                 {
-                    FindBorderNeighbor(mooreNeigh, i, j);
+                    FindBorderNeighbor(mooreNeigh, i, j, false);
                     SetExclusiveBordering(i, j, c);
                 }
             //safeColors.Clear();
@@ -869,6 +884,7 @@ namespace GrainGrowth
         }
         private void Btn_StartStop_Click(object sender, EventArgs e)
         {
+            t.Tick += new EventHandler(Btn_Next_Click);
             if (t.Enabled) //if it's growing right now
             {
                 t.Stop(); //then stop
@@ -976,6 +992,7 @@ namespace GrainGrowth
                 table_iter = 0;
                 tempColors = new List<Color>();
                 eachColor = new List<Color>();
+                allPoints = new List<Point>();
                 bmp = imgBMP;
                 for (int i = 0; i < sizeX; i++)
                     for (int j = 0; j < sizeY; j++)
@@ -985,10 +1002,17 @@ namespace GrainGrowth
                         else
                             state[i, j] = nextstate[i, j] = true;
                         color[i, j] = nextcolor[i, j] = bmp.GetPixel(i, j);
+                        if (!eachColor.Contains(bmp.GetPixel(i, j)))
+                            eachColor.Add(bmp.GetPixel(i, j));
+                        allPoints.Add(new Point(i, j));
                     }
                 DrawingBoard.Image = bmp;
                 Size size = new Size(Convert.ToInt32(sizeX), Convert.ToInt32(sizeY));
                 DrawingBoard.Size = size;
+                mcCurrentStep = 0;
+                mcCheckedCells = 0;
+                lab_MCCurrentStep.Text = "Finished steps: 0";
+                lab_MCCheckedCells.Text = "Checked cells: 0";
             }
         }
         private void FromTXTToolStripMenuItem_Click(object sender, EventArgs e) 
@@ -1008,6 +1032,15 @@ namespace GrainGrowth
                     sizeY = Convert.ToInt32(sizes[1]);
                     Size size = new Size(sizeX, sizeY);
                     DrawingBoard.Size = size;
+                    state = new bool[sizeX, sizeY];
+                    color = new Color[sizeX, sizeY];
+                    nextstate = new bool[sizeX, sizeY];
+                    nextcolor = new Color[sizeX, sizeY];
+                    currentNeigh = new bool[] { false, false, false, false, false, false, false, false, false };
+                    table_iter = 0;
+                    tempColors = new List<Color>();
+                    eachColor = new List<Color>();
+                    allPoints = new List<Point>();
                     while ((line = streamReader.ReadLine()) != null)
                     {
                         string[] words = line.Split(delimiter);
@@ -1019,27 +1052,39 @@ namespace GrainGrowth
                         else
                             nextstate[i, j] = true;
                         nextcolor[i, j] = colorr;
+                        if (!eachColor.Contains(colorr))
+                            eachColor.Add(colorr);
+                        allPoints.Add(new Point(i, j));
                     }
-                    WriteBoard();
+                    
                 }
+                mcCurrentStep = 0;
+                mcCheckedCells = 0;
+                lab_MCCurrentStep.Text = "Finished steps: 0";
+                lab_MCCheckedCells.Text = "Checked cells: 0";
+                WriteBoard();
             }
         }
 
         //export
         private void ToBMPToolStripMenuItem_Click(object sender, EventArgs e) 
         {
-            SaveFileDialog toBMP = new SaveFileDialog();
-            toBMP.FileName = "cells.bmp";
-            toBMP.Filter = "Bitmap | *.bmp";
+            SaveFileDialog toBMP = new SaveFileDialog
+            {
+                FileName = "cells.bmp",
+                Filter = "Bitmap | *.bmp"
+            };
             System.Drawing.Imaging.ImageFormat imgf = System.Drawing.Imaging.ImageFormat.Bmp;
             if(toBMP.ShowDialog() == DialogResult.OK)
                 DrawingBoard.Image.Save(toBMP.FileName, imgf);
         }
         private void ToTXTToolStripMenuItem_Click(object sender, EventArgs e) 
         {
-            SaveFileDialog toTXT = new SaveFileDialog();
-            toTXT.FileName = "cells.txt";
-            toTXT.Filter = "Text file | *.txt";
+            SaveFileDialog toTXT = new SaveFileDialog
+            {
+                FileName = "cells.txt",
+                Filter = "Text file | *.txt"
+            };
             lines.Clear();
             lines.Add(Convert.ToString(sizeX) + " " + Convert.ToString(sizeY));
             for (int i = 0; i < sizeX; i++)
@@ -1053,6 +1098,99 @@ namespace GrainGrowth
                         outputFile.WriteLine(line);
                 }
             }
+        }
+
+        //basic monte carlo
+        private void Btn_MCInsert_Click(object sender, EventArgs e)
+        {
+            //add colors to the list
+            //List<Color> cs = new List<Color>();
+            for (int g = 0; g < tb_MCStates.Value; g++)
+            {
+                do randomColor = Color.FromArgb(_rand.Next(256), _rand.Next(256), _rand.Next(256));
+                while (randomColor == defaultColor && randomColor == inclusionColor && eachColor.Contains(randomColor));
+                eachColor.Add(randomColor);
+            }
+            int rand;
+            for(int i = 0; i< sizeX; i++)
+                for(int j = 0; j< sizeY; j++)
+                {
+                    rand = _rand.Next(0, Convert.ToInt32(tb_MCStates.Value));
+                    nextcolor[i,j] = eachColor[rand];
+                    nextstate[i, j] = true;
+                    //allPoints.Add(new Point(i,j));
+                }
+            WriteBoard();
+        }
+        private void Btn_MCStartStop_Click(object sender, EventArgs e)
+        {
+            if (isActive)
+                isActive = false;
+            else
+                isActive = true;
+            mcThread = new Thread(MCRun);
+            mcThread.Start();
+        }
+        private void SingleCell()
+        {
+            //init data
+            int randPt, randC;
+            double preEnergy = 0;
+            double preDelta = 0;
+            double postEnergy = 0;
+            double postDelta = 0;
+            double energyDelta = 0;
+            if(mcCurrentStep < Convert.ToInt32(tb_MCSteps.Value))
+            {
+                if (allPoints.Count > 0)
+                {
+                    randPt = _rand.Next(0, allPoints.Count);
+                    FindBorderNeighbor(mooreNeigh, allPoints[randPt].X, allPoints[randPt].Y, true); // get tempColors
+                    foreach (Color c in tempColors) //calc pre-change delta
+                    {
+                        if (c != color[allPoints[randPt].X, allPoints[randPt].Y])
+                            preDelta++;
+                    }
+                    preEnergy = Convert.ToDouble(tb_MCEnergy.Value) * preDelta; //calc pre-change energy
+
+                    randC = _rand.Next(0, Convert.ToInt32(eachColor.Count)); //get random color from available states
+
+                    foreach (Color c in tempColors) //calc post-change delta
+                    {
+                        if (c != eachColor[randC])
+                            postDelta++;
+                    }
+                    postEnergy = Convert.ToDouble(tb_MCEnergy.Value) * postDelta; //calc post-change energy
+                    energyDelta = postEnergy - preEnergy; //calc delta
+                    if (energyDelta <= 0) //probability
+                        nextcolor[allPoints[randPt].X, allPoints[randPt].Y] = eachColor[randC];
+
+                    preDelta = 0;
+                    preEnergy = 0;
+                    postDelta = 0;
+                    postEnergy = 0;
+                    tempColors.Clear();
+                    allPoints.RemoveAt(randPt);
+                    WriteBoard();
+                    mcCheckedCells++;
+                    lab_MCCheckedCells.Text = "Checked cells: " + Convert.ToString(mcCheckedCells);
+                }
+                else
+                {
+                    GenerateNewPoints();
+                    mcCurrentStep++;
+                    lab_MCCurrentStep.Text = "Finished steps: " + Convert.ToString(mcCurrentStep);
+                }
+            }
+            else
+            {
+                isActive = false;
+            } 
+        }
+        private void MCRun()
+        {
+            while (isActive)
+                SingleCell();
         }
 
         //misc
@@ -1083,6 +1221,12 @@ namespace GrainGrowth
                 }
             DrawingBoard.Image = bmp;
         }
+        private void GenerateNewPoints()
+        {
+            for (int i = 0; i < sizeX; i++)
+                for (int j = 0; j < sizeY; j++)
+                    allPoints.Add(new Point(i, j));
+        }
         private String HexConverter(Color c)
         {
             return "#" + c.R.ToString("X2") + c.G.ToString("X2") + c.B.ToString("X2");
@@ -1098,13 +1242,14 @@ namespace GrainGrowth
             else
                 return false;
         }
+        
 
         //unused
         private int Mod(int x, int m)
         {
             return ((x % m) + m) % m;
         }
-        private void checkEnableControlButtons()
+        private void CheckEnableControlButtons()
         {
             if (!state.Cast<bool>().Contains(true))
             {

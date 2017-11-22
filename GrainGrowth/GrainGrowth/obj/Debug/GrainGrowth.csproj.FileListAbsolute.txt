@@ -37,3 +37,13 @@ C:\Users\uzikus\Dysk Google\GrainGrowth\GrainGrowth\obj\Debug\GrainGrowth.csproj
 C:\Users\uzikus\Dysk Google\GrainGrowth\GrainGrowth\obj\Debug\GrainGrowth.csproj.CoreCompileInputs.cache
 C:\Users\uzikus\Dysk Google\GrainGrowth\GrainGrowth\obj\Debug\GrainGrowth.exe
 C:\Users\uzikus\Dysk Google\GrainGrowth\GrainGrowth\obj\Debug\GrainGrowth.pdb
+C:\Users\uzikus\Dysk Google\Studia\MSM\GrainGrowth\GrainGrowth\bin\Debug\GrainGrowth.exe.config
+C:\Users\uzikus\Dysk Google\Studia\MSM\GrainGrowth\GrainGrowth\bin\Debug\GrainGrowth.exe
+C:\Users\uzikus\Dysk Google\Studia\MSM\GrainGrowth\GrainGrowth\bin\Debug\GrainGrowth.pdb
+C:\Users\uzikus\Dysk Google\Studia\MSM\GrainGrowth\GrainGrowth\obj\Debug\GrainGrowth.csprojResolveAssemblyReference.cache
+C:\Users\uzikus\Dysk Google\Studia\MSM\GrainGrowth\GrainGrowth\obj\Debug\GrainGrowth.GrainGrowth.resources
+C:\Users\uzikus\Dysk Google\Studia\MSM\GrainGrowth\GrainGrowth\obj\Debug\GrainGrowth.Properties.Resources.resources
+C:\Users\uzikus\Dysk Google\Studia\MSM\GrainGrowth\GrainGrowth\obj\Debug\GrainGrowth.csproj.GenerateResource.Cache
+C:\Users\uzikus\Dysk Google\Studia\MSM\GrainGrowth\GrainGrowth\obj\Debug\GrainGrowth.csproj.CoreCompileInputs.cache
+C:\Users\uzikus\Dysk Google\Studia\MSM\GrainGrowth\GrainGrowth\obj\Debug\GrainGrowth.exe
+C:\Users\uzikus\Dysk Google\Studia\MSM\GrainGrowth\GrainGrowth\obj\Debug\GrainGrowth.pdb

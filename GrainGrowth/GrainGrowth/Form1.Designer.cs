@@ -80,6 +80,8 @@
             this.rb_MicroSubs = new System.Windows.Forms.RadioButton();
             this.lb_Running = new System.Windows.Forms.Label();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.tb_BordersSize = new System.Windows.Forms.NumericUpDown();
             this.cb_BordersUnique = new System.Windows.Forms.CheckBox();
             this.rb_BordersExclusive = new System.Windows.Forms.RadioButton();
             this.lv_SelectedPoints = new System.Windows.Forms.ListView();
@@ -88,8 +90,20 @@
             this.btn_BordersAdd = new System.Windows.Forms.Button();
             this.rb_BordersEvery = new System.Windows.Forms.RadioButton();
             this.rb_BordersNone = new System.Windows.Forms.RadioButton();
-            this.tb_BordersSize = new System.Windows.Forms.NumericUpDown();
-            this.label6 = new System.Windows.Forms.Label();
+            this.tabControl = new System.Windows.Forms.TabControl();
+            this.tab_Growth = new System.Windows.Forms.TabPage();
+            this.tab_MC = new System.Windows.Forms.TabPage();
+            this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.lab_MCCheckedCells = new System.Windows.Forms.Label();
+            this.btn_MCStartStop = new System.Windows.Forms.Button();
+            this.label9 = new System.Windows.Forms.Label();
+            this.btn_MCInsert = new System.Windows.Forms.Button();
+            this.tb_MCEnergy = new System.Windows.Forms.NumericUpDown();
+            this.tb_MCStates = new System.Windows.Forms.NumericUpDown();
+            this.label7 = new System.Windows.Forms.Label();
+            this.lab_MCCurrentStep = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.tb_MCSteps = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.DrawingBoard)).BeginInit();
             this.gb_IncType.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tb_imgWidth)).BeginInit();
@@ -108,6 +122,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.tb_AmountPerHole)).BeginInit();
             this.groupBox6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tb_BordersSize)).BeginInit();
+            this.tabControl.SuspendLayout();
+            this.tab_Growth.SuspendLayout();
+            this.tab_MC.SuspendLayout();
+            this.groupBox7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_MCEnergy)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_MCStates)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_MCSteps)).BeginInit();
             this.SuspendLayout();
             // 
             // DrawingBoard
@@ -121,7 +142,7 @@
             // 
             // btn_StartStop
             // 
-            this.btn_StartStop.Location = new System.Drawing.Point(662, 30);
+            this.btn_StartStop.Location = new System.Drawing.Point(75, 4);
             this.btn_StartStop.Name = "btn_StartStop";
             this.btn_StartStop.Size = new System.Drawing.Size(63, 22);
             this.btn_StartStop.TabIndex = 12;
@@ -132,7 +153,7 @@
             // btn_Next
             // 
             this.btn_Next.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.btn_Next.Location = new System.Drawing.Point(593, 30);
+            this.btn_Next.Location = new System.Drawing.Point(6, 4);
             this.btn_Next.Name = "btn_Next";
             this.btn_Next.Size = new System.Drawing.Size(64, 22);
             this.btn_Next.TabIndex = 5;
@@ -188,7 +209,7 @@
             // 
             // btn_Reset
             // 
-            this.btn_Reset.Location = new System.Drawing.Point(731, 30);
+            this.btn_Reset.Location = new System.Drawing.Point(144, 4);
             this.btn_Reset.Name = "btn_Reset";
             this.btn_Reset.Size = new System.Drawing.Size(58, 22);
             this.btn_Reset.TabIndex = 13;
@@ -260,7 +281,7 @@
             // lb_Width
             // 
             this.lb_Width.AutoSize = true;
-            this.lb_Width.Location = new System.Drawing.Point(593, 55);
+            this.lb_Width.Location = new System.Drawing.Point(6, 29);
             this.lb_Width.Name = "lb_Width";
             this.lb_Width.Size = new System.Drawing.Size(38, 13);
             this.lb_Width.TabIndex = 29;
@@ -269,7 +290,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(663, 55);
+            this.label3.Location = new System.Drawing.Point(76, 29);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(41, 13);
             this.label3.TabIndex = 30;
@@ -277,7 +298,7 @@
             // 
             // btn_Reshape
             // 
-            this.btn_Reshape.Location = new System.Drawing.Point(731, 69);
+            this.btn_Reshape.Location = new System.Drawing.Point(144, 43);
             this.btn_Reshape.Name = "btn_Reshape";
             this.btn_Reshape.Size = new System.Drawing.Size(58, 21);
             this.btn_Reshape.TabIndex = 31;
@@ -287,7 +308,7 @@
             // 
             // tb_imgWidth
             // 
-            this.tb_imgWidth.Location = new System.Drawing.Point(593, 71);
+            this.tb_imgWidth.Location = new System.Drawing.Point(6, 45);
             this.tb_imgWidth.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -309,7 +330,7 @@
             // 
             // tb_imgHeight
             // 
-            this.tb_imgHeight.Location = new System.Drawing.Point(663, 71);
+            this.tb_imgHeight.Location = new System.Drawing.Point(76, 45);
             this.tb_imgHeight.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -331,7 +352,7 @@
             this.pnl_PBox.Controls.Add(this.DrawingBoard);
             this.pnl_PBox.Location = new System.Drawing.Point(12, 27);
             this.pnl_PBox.Name = "pnl_PBox";
-            this.pnl_PBox.Size = new System.Drawing.Size(572, 674);
+            this.pnl_PBox.Size = new System.Drawing.Size(572, 705);
             this.pnl_PBox.TabIndex = 34;
             // 
             // ms_menu
@@ -340,7 +361,7 @@
             this.fileToolStripMenuItem});
             this.ms_menu.Location = new System.Drawing.Point(0, 0);
             this.ms_menu.Name = "ms_menu";
-            this.ms_menu.Size = new System.Drawing.Size(812, 24);
+            this.ms_menu.Size = new System.Drawing.Size(829, 24);
             this.ms_menu.TabIndex = 35;
             this.ms_menu.Text = "menuStrip1";
             // 
@@ -440,7 +461,7 @@
             this.groupBox1.Controls.Add(this.tb_IncAmount);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Location = new System.Drawing.Point(593, 254);
+            this.groupBox1.Location = new System.Drawing.Point(6, 228);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(206, 146);
             this.groupBox1.TabIndex = 38;
@@ -503,7 +524,7 @@
             this.groupBox3.Controls.Add(this.tb_Probability);
             this.groupBox3.Controls.Add(this.rb_AdvancedMoore);
             this.groupBox3.Controls.Add(this.rb_SimpleMoore);
-            this.groupBox3.Location = new System.Drawing.Point(593, 175);
+            this.groupBox3.Location = new System.Drawing.Point(6, 149);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(206, 73);
             this.groupBox3.TabIndex = 40;
@@ -566,7 +587,7 @@
             this.groupBox4.Controls.Add(this.tb_Random);
             this.groupBox4.Controls.Add(this.btn_Insert);
             this.groupBox4.Controls.Add(this.cb_Periodic);
-            this.groupBox4.Location = new System.Drawing.Point(593, 97);
+            this.groupBox4.Location = new System.Drawing.Point(6, 71);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(206, 72);
             this.groupBox4.TabIndex = 41;
@@ -582,7 +603,7 @@
             this.groupBox5.Controls.Add(this.tb_AmountPerHole);
             this.groupBox5.Controls.Add(this.rb_MicroDual);
             this.groupBox5.Controls.Add(this.rb_MicroSubs);
-            this.groupBox5.Location = new System.Drawing.Point(593, 406);
+            this.groupBox5.Location = new System.Drawing.Point(6, 380);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(206, 127);
             this.groupBox5.TabIndex = 42;
@@ -690,12 +711,38 @@
             this.groupBox6.Controls.Add(this.btn_BordersAdd);
             this.groupBox6.Controls.Add(this.rb_BordersEvery);
             this.groupBox6.Controls.Add(this.rb_BordersNone);
-            this.groupBox6.Location = new System.Drawing.Point(593, 539);
+            this.groupBox6.Location = new System.Drawing.Point(6, 513);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(206, 162);
             this.groupBox6.TabIndex = 44;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Grain borders";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(9, 115);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(46, 13);
+            this.label6.TabIndex = 11;
+            this.label6.Text = "GB size:";
+            // 
+            // tb_BordersSize
+            // 
+            this.tb_BordersSize.Location = new System.Drawing.Point(69, 112);
+            this.tb_BordersSize.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.tb_BordersSize.Name = "tb_BordersSize";
+            this.tb_BordersSize.Size = new System.Drawing.Size(46, 20);
+            this.tb_BordersSize.TabIndex = 10;
+            this.tb_BordersSize.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // cb_BordersUnique
             // 
@@ -784,52 +831,199 @@
             this.rb_BordersNone.Text = "None";
             this.rb_BordersNone.UseVisualStyleBackColor = true;
             // 
-            // tb_BordersSize
+            // tabControl
             // 
-            this.tb_BordersSize.Location = new System.Drawing.Point(69, 112);
-            this.tb_BordersSize.Minimum = new decimal(new int[] {
+            this.tabControl.Controls.Add(this.tab_Growth);
+            this.tabControl.Controls.Add(this.tab_MC);
+            this.tabControl.Location = new System.Drawing.Point(590, 27);
+            this.tabControl.Name = "tabControl";
+            this.tabControl.SelectedIndex = 0;
+            this.tabControl.Size = new System.Drawing.Size(230, 705);
+            this.tabControl.TabIndex = 45;
+            // 
+            // tab_Growth
+            // 
+            this.tab_Growth.Controls.Add(this.groupBox4);
+            this.tab_Growth.Controls.Add(this.groupBox6);
+            this.tab_Growth.Controls.Add(this.btn_Reset);
+            this.tab_Growth.Controls.Add(this.btn_StartStop);
+            this.tab_Growth.Controls.Add(this.groupBox5);
+            this.tab_Growth.Controls.Add(this.btn_Next);
+            this.tab_Growth.Controls.Add(this.lb_Width);
+            this.tab_Growth.Controls.Add(this.groupBox3);
+            this.tab_Growth.Controls.Add(this.label3);
+            this.tab_Growth.Controls.Add(this.groupBox1);
+            this.tab_Growth.Controls.Add(this.btn_Reshape);
+            this.tab_Growth.Controls.Add(this.tb_imgWidth);
+            this.tab_Growth.Controls.Add(this.tb_imgHeight);
+            this.tab_Growth.Location = new System.Drawing.Point(4, 22);
+            this.tab_Growth.Name = "tab_Growth";
+            this.tab_Growth.Padding = new System.Windows.Forms.Padding(3);
+            this.tab_Growth.Size = new System.Drawing.Size(222, 679);
+            this.tab_Growth.TabIndex = 0;
+            this.tab_Growth.Text = "Growth";
+            this.tab_Growth.UseVisualStyleBackColor = true;
+            // 
+            // tab_MC
+            // 
+            this.tab_MC.Controls.Add(this.groupBox7);
+            this.tab_MC.Location = new System.Drawing.Point(4, 22);
+            this.tab_MC.Name = "tab_MC";
+            this.tab_MC.Padding = new System.Windows.Forms.Padding(3);
+            this.tab_MC.Size = new System.Drawing.Size(222, 679);
+            this.tab_MC.TabIndex = 1;
+            this.tab_MC.Text = "Monte Carlo";
+            this.tab_MC.UseVisualStyleBackColor = true;
+            // 
+            // groupBox7
+            // 
+            this.groupBox7.Controls.Add(this.lab_MCCheckedCells);
+            this.groupBox7.Controls.Add(this.btn_MCStartStop);
+            this.groupBox7.Controls.Add(this.label9);
+            this.groupBox7.Controls.Add(this.btn_MCInsert);
+            this.groupBox7.Controls.Add(this.tb_MCEnergy);
+            this.groupBox7.Controls.Add(this.tb_MCStates);
+            this.groupBox7.Controls.Add(this.label7);
+            this.groupBox7.Controls.Add(this.lab_MCCurrentStep);
+            this.groupBox7.Controls.Add(this.label8);
+            this.groupBox7.Controls.Add(this.tb_MCSteps);
+            this.groupBox7.Location = new System.Drawing.Point(6, 6);
+            this.groupBox7.Name = "groupBox7";
+            this.groupBox7.Size = new System.Drawing.Size(210, 120);
+            this.groupBox7.TabIndex = 7;
+            this.groupBox7.TabStop = false;
+            this.groupBox7.Text = "MC grain growth";
+            // 
+            // lab_MCCheckedCells
+            // 
+            this.lab_MCCheckedCells.AutoSize = true;
+            this.lab_MCCheckedCells.Location = new System.Drawing.Point(3, 104);
+            this.lab_MCCheckedCells.Name = "lab_MCCheckedCells";
+            this.lab_MCCheckedCells.Size = new System.Drawing.Size(86, 13);
+            this.lab_MCCheckedCells.TabIndex = 9;
+            this.lab_MCCheckedCells.Text = "Checked cells: 0";
+            // 
+            // btn_MCStartStop
+            // 
+            this.btn_MCStartStop.Location = new System.Drawing.Point(127, 47);
+            this.btn_MCStartStop.Name = "btn_MCStartStop";
+            this.btn_MCStartStop.Size = new System.Drawing.Size(66, 20);
+            this.btn_MCStartStop.TabIndex = 6;
+            this.btn_MCStartStop.Text = "Start/stop";
+            this.btn_MCStartStop.UseVisualStyleBackColor = true;
+            this.btn_MCStartStop.Click += new System.EventHandler(this.Btn_MCStartStop_Click);
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(0, 47);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(43, 13);
+            this.label9.TabIndex = 8;
+            this.label9.Text = "Energy:";
+            // 
+            // btn_MCInsert
+            // 
+            this.btn_MCInsert.Location = new System.Drawing.Point(127, 21);
+            this.btn_MCInsert.Name = "btn_MCInsert";
+            this.btn_MCInsert.Size = new System.Drawing.Size(66, 20);
+            this.btn_MCInsert.TabIndex = 5;
+            this.btn_MCInsert.Text = "Insert";
+            this.btn_MCInsert.UseVisualStyleBackColor = true;
+            this.btn_MCInsert.Click += new System.EventHandler(this.Btn_MCInsert_Click);
+            // 
+            // tb_MCEnergy
+            // 
+            this.tb_MCEnergy.DecimalPlaces = 1;
+            this.tb_MCEnergy.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.tb_MCEnergy.Location = new System.Drawing.Point(49, 45);
+            this.tb_MCEnergy.Maximum = new decimal(new int[] {
             1,
             0,
             0,
             0});
-            this.tb_BordersSize.Name = "tb_BordersSize";
-            this.tb_BordersSize.Size = new System.Drawing.Size(46, 20);
-            this.tb_BordersSize.TabIndex = 10;
-            this.tb_BordersSize.Value = new decimal(new int[] {
+            this.tb_MCEnergy.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.tb_MCEnergy.Name = "tb_MCEnergy";
+            this.tb_MCEnergy.Size = new System.Drawing.Size(56, 20);
+            this.tb_MCEnergy.TabIndex = 7;
+            this.tb_MCEnergy.Value = new decimal(new int[] {
             1,
             0,
             0,
             0});
             // 
-            // label6
+            // tb_MCStates
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(9, 115);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(46, 13);
-            this.label6.TabIndex = 11;
-            this.label6.Text = "GB size:";
+            this.tb_MCStates.Location = new System.Drawing.Point(49, 19);
+            this.tb_MCStates.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.tb_MCStates.Name = "tb_MCStates";
+            this.tb_MCStates.Size = new System.Drawing.Size(56, 20);
+            this.tb_MCStates.TabIndex = 0;
+            this.tb_MCStates.Value = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(3, 21);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(40, 13);
+            this.label7.TabIndex = 1;
+            this.label7.Text = "States:";
+            // 
+            // lab_MCCurrentStep
+            // 
+            this.lab_MCCurrentStep.AutoSize = true;
+            this.lab_MCCurrentStep.Location = new System.Drawing.Point(124, 104);
+            this.lab_MCCurrentStep.Name = "lab_MCCurrentStep";
+            this.lab_MCCurrentStep.Size = new System.Drawing.Size(86, 13);
+            this.lab_MCCurrentStep.TabIndex = 4;
+            this.lab_MCCurrentStep.Text = "Finished steps: 0";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(6, 75);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(37, 13);
+            this.label8.TabIndex = 2;
+            this.label8.Text = "Steps:";
+            // 
+            // tb_MCSteps
+            // 
+            this.tb_MCSteps.Location = new System.Drawing.Point(49, 71);
+            this.tb_MCSteps.Name = "tb_MCSteps";
+            this.tb_MCSteps.Size = new System.Drawing.Size(56, 20);
+            this.tb_MCSteps.TabIndex = 3;
+            this.tb_MCSteps.Value = new decimal(new int[] {
+            20,
+            0,
+            0,
+            0});
             // 
             // GrainGrowth
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(812, 712);
-            this.Controls.Add(this.groupBox6);
+            this.ClientSize = new System.Drawing.Size(829, 744);
+            this.Controls.Add(this.tabControl);
             this.Controls.Add(this.lb_Running);
-            this.Controls.Add(this.groupBox5);
-            this.Controls.Add(this.groupBox4);
-            this.Controls.Add(this.groupBox3);
-            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.pnl_PBox);
-            this.Controls.Add(this.tb_imgHeight);
-            this.Controls.Add(this.tb_imgWidth);
-            this.Controls.Add(this.btn_Reshape);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.lb_Width);
-            this.Controls.Add(this.btn_Next);
-            this.Controls.Add(this.btn_StartStop);
-            this.Controls.Add(this.btn_Reset);
             this.Controls.Add(this.ms_menu);
             this.MainMenuStrip = this.ms_menu;
             this.MaximizeBox = false;
@@ -861,6 +1055,15 @@
             this.groupBox6.ResumeLayout(false);
             this.groupBox6.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tb_BordersSize)).EndInit();
+            this.tabControl.ResumeLayout(false);
+            this.tab_Growth.ResumeLayout(false);
+            this.tab_Growth.PerformLayout();
+            this.tab_MC.ResumeLayout(false);
+            this.groupBox7.ResumeLayout(false);
+            this.groupBox7.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_MCEnergy)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_MCStates)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_MCSteps)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -930,6 +1133,20 @@
         private System.Windows.Forms.RadioButton rb_BordersExclusive;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.NumericUpDown tb_BordersSize;
+        private System.Windows.Forms.TabControl tabControl;
+        private System.Windows.Forms.TabPage tab_Growth;
+        private System.Windows.Forms.TabPage tab_MC;
+        private System.Windows.Forms.Button btn_MCInsert;
+        private System.Windows.Forms.Label lab_MCCurrentStep;
+        private System.Windows.Forms.NumericUpDown tb_MCSteps;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.NumericUpDown tb_MCStates;
+        private System.Windows.Forms.Button btn_MCStartStop;
+        private System.Windows.Forms.GroupBox groupBox7;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.NumericUpDown tb_MCEnergy;
+        private System.Windows.Forms.Label lab_MCCheckedCells;
     }
 }
 
