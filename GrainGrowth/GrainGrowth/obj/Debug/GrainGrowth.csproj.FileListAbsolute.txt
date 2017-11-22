@@ -1,0 +1,39 @@
+D:\GrainGrowth\GrainGrowth\bin\Debug\GrainGrowth.exe.config
+D:\GrainGrowth\GrainGrowth\bin\Debug\GrainGrowth.exe
+D:\GrainGrowth\GrainGrowth\bin\Debug\GrainGrowth.pdb
+D:\GrainGrowth\GrainGrowth\obj\Debug\GrainGrowth.csprojResolveAssemblyReference.cache
+D:\GrainGrowth\GrainGrowth\obj\Debug\GrainGrowth.Properties.Resources.resources
+D:\GrainGrowth\GrainGrowth\obj\Debug\GrainGrowth.csproj.GenerateResource.Cache
+D:\GrainGrowth\GrainGrowth\obj\Debug\GrainGrowth.exe
+D:\GrainGrowth\GrainGrowth\obj\Debug\GrainGrowth.pdb
+D:\GrainGrowth\GrainGrowth\obj\Debug\GrainGrowth.GrainGrowth.resources
+C:\Users\uzikus\Dysk Google\Studia\Modelowanie wieloskalowe\Modelowanie wieloskalowe\GrainGrowth (Final)\GrainGrowth\bin\Debug\GrainGrowth.exe.config
+C:\Users\uzikus\Dysk Google\Studia\Modelowanie wieloskalowe\Modelowanie wieloskalowe\GrainGrowth (Final)\GrainGrowth\bin\Debug\GrainGrowth.exe
+C:\Users\uzikus\Dysk Google\Studia\Modelowanie wieloskalowe\Modelowanie wieloskalowe\GrainGrowth (Final)\GrainGrowth\bin\Debug\GrainGrowth.pdb
+C:\Users\uzikus\Dysk Google\Studia\Modelowanie wieloskalowe\Modelowanie wieloskalowe\GrainGrowth (Final)\GrainGrowth\obj\Debug\GrainGrowth.csprojResolveAssemblyReference.cache
+C:\Users\uzikus\Dysk Google\Studia\Modelowanie wieloskalowe\Modelowanie wieloskalowe\GrainGrowth (Final)\GrainGrowth\obj\Debug\GrainGrowth.GrainGrowth.resources
+C:\Users\uzikus\Dysk Google\Studia\Modelowanie wieloskalowe\Modelowanie wieloskalowe\GrainGrowth (Final)\GrainGrowth\obj\Debug\GrainGrowth.Properties.Resources.resources
+C:\Users\uzikus\Dysk Google\Studia\Modelowanie wieloskalowe\Modelowanie wieloskalowe\GrainGrowth (Final)\GrainGrowth\obj\Debug\GrainGrowth.csproj.GenerateResource.Cache
+C:\Users\uzikus\Dysk Google\Studia\Modelowanie wieloskalowe\Modelowanie wieloskalowe\GrainGrowth (Final)\GrainGrowth\obj\Debug\GrainGrowth.csproj.CoreCompileInputs.cache
+C:\Users\uzikus\Dysk Google\Studia\Modelowanie wieloskalowe\Modelowanie wieloskalowe\GrainGrowth (Final)\GrainGrowth\obj\Debug\GrainGrowth.exe
+C:\Users\uzikus\Dysk Google\Studia\Modelowanie wieloskalowe\Modelowanie wieloskalowe\GrainGrowth (Final)\GrainGrowth\obj\Debug\GrainGrowth.pdb
+C:\Users\uzikus\Desktop\GrainGrowth (Final)\GrainGrowth\obj\Debug\GrainGrowth.csprojResolveAssemblyReference.cache
+C:\Users\uzikus\Desktop\GrainGrowth (Final)\GrainGrowth\obj\Debug\GrainGrowth.GrainGrowth.resources
+C:\Users\uzikus\Desktop\GrainGrowth (Final)\GrainGrowth\obj\Debug\GrainGrowth.Properties.Resources.resources
+C:\Users\uzikus\Desktop\GrainGrowth (Final)\GrainGrowth\obj\Debug\GrainGrowth.csproj.GenerateResource.Cache
+C:\Users\uzikus\Desktop\GrainGrowth (Final)\GrainGrowth\obj\Debug\GrainGrowth.csproj.CoreCompileInputs.cache
+C:\Users\uzikus\Desktop\GrainGrowth (Final)\GrainGrowth\obj\Debug\GrainGrowth.exe
+C:\Users\uzikus\Desktop\GrainGrowth (Final)\GrainGrowth\obj\Debug\GrainGrowth.pdb
+C:\Users\uzikus\Desktop\GrainGrowth (Final)\GrainGrowth\bin\Debug\GrainGrowth.exe.config
+C:\Users\uzikus\Desktop\GrainGrowth (Final)\GrainGrowth\bin\Debug\GrainGrowth.exe
+C:\Users\uzikus\Desktop\GrainGrowth (Final)\GrainGrowth\bin\Debug\GrainGrowth.pdb
+C:\Users\uzikus\Dysk Google\GrainGrowth\GrainGrowth\bin\Debug\GrainGrowth.exe.config
+C:\Users\uzikus\Dysk Google\GrainGrowth\GrainGrowth\bin\Debug\GrainGrowth.exe
+C:\Users\uzikus\Dysk Google\GrainGrowth\GrainGrowth\bin\Debug\GrainGrowth.pdb
+C:\Users\uzikus\Dysk Google\GrainGrowth\GrainGrowth\obj\Debug\GrainGrowth.csprojResolveAssemblyReference.cache
+C:\Users\uzikus\Dysk Google\GrainGrowth\GrainGrowth\obj\Debug\GrainGrowth.GrainGrowth.resources
+C:\Users\uzikus\Dysk Google\GrainGrowth\GrainGrowth\obj\Debug\GrainGrowth.Properties.Resources.resources
+C:\Users\uzikus\Dysk Google\GrainGrowth\GrainGrowth\obj\Debug\GrainGrowth.csproj.GenerateResource.Cache
+C:\Users\uzikus\Dysk Google\GrainGrowth\GrainGrowth\obj\Debug\GrainGrowth.csproj.CoreCompileInputs.cache
+C:\Users\uzikus\Dysk Google\GrainGrowth\GrainGrowth\obj\Debug\GrainGrowth.exe
+C:\Users\uzikus\Dysk Google\GrainGrowth\GrainGrowth\obj\Debug\GrainGrowth.pdb
