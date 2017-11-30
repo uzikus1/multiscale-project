@@ -128,7 +128,7 @@ namespace GrainGrowth
 
             //init gfx
             bmp = new Bitmap(sizeX, sizeY);
-            b = new SolidBrush(defaultColor);
+            //b = new SolidBrush(defaultColor);
             ClearBoard(); 
 
             //init misc
@@ -317,7 +317,19 @@ namespace GrainGrowth
                 {
                     if (m >= 0 && m < sizeX && n >= 0 && n < sizeY)
                         if (neigh[table_iter])
-                            tempColors.Add(color[m, n]);
+                        {
+                            if(isMC) // if we're running monte carlo
+                            {
+                                if (forbiddenColors.Contains(color[m, n]))
+                                    continue;
+                                else
+                                    tempColors.Add(color[m, n]);
+                            }
+                            else
+                            {
+                                tempColors.Add(color[m, n]);
+                            }
+                        }         
                     table_iter++;
                 }
             table_iter = 0;
@@ -682,6 +694,7 @@ namespace GrainGrowth
         {
             if (rb_MicroDual.Checked)
             {
+                eachColor.Clear(); //experimental line
                 do randomColor = Color.FromArgb(_rand.Next(256), _rand.Next(256), _rand.Next(256));
                 while (randomColor == defaultColor && randomColor == inclusionColor && eachColor.Contains(randomColor));
                 forbiddenColors.Add(randomColor);
@@ -1108,16 +1121,19 @@ namespace GrainGrowth
             for (int g = 0; g < tb_MCStates.Value; g++)
             {
                 do randomColor = Color.FromArgb(_rand.Next(256), _rand.Next(256), _rand.Next(256));
-                while (randomColor == defaultColor && randomColor == inclusionColor && eachColor.Contains(randomColor));
+                while (randomColor == defaultColor && randomColor == inclusionColor && eachColor.Contains(randomColor) && forbiddenColors.Contains(randomColor));
                 eachColor.Add(randomColor);
             }
             int rand;
             for(int i = 0; i< sizeX; i++)
                 for(int j = 0; j< sizeY; j++)
                 {
-                    rand = _rand.Next(0, Convert.ToInt32(tb_MCStates.Value));
-                    nextcolor[i,j] = eachColor[rand];
-                    nextstate[i, j] = true;
+                    if(!state[i,j])
+                    {
+                        rand = _rand.Next(0, Convert.ToInt32(tb_MCStates.Value));
+                        nextcolor[i, j] = eachColor[rand];
+                        nextstate[i, j] = true;
+                    }
                     //allPoints.Add(new Point(i,j));
                 }
             WriteBoard();
@@ -1132,7 +1148,7 @@ namespace GrainGrowth
             mcThread.Start();
         }
         private void SingleCell()
-        {
+        { 
             //init data
             int randPt, randC;
             double preEnergy = 0;
@@ -1145,39 +1161,47 @@ namespace GrainGrowth
                 if (allPoints.Count > 0)
                 {
                     randPt = _rand.Next(0, allPoints.Count);
+                    if (!forbiddenColors.Contains(nextcolor[allPoints[randPt].X, allPoints[randPt].Y]))
+                    {
                     FindBorderNeighbor(mooreNeigh, allPoints[randPt].X, allPoints[randPt].Y, true); // get tempColors
-                    foreach (Color c in tempColors) //calc pre-change delta
-                    {
-                        if (c != color[allPoints[randPt].X, allPoints[randPt].Y])
-                            preDelta++;
+                        foreach (Color c in tempColors) //calc pre-change delta
+                        {
+                            if (c != color[allPoints[randPt].X, allPoints[randPt].Y])
+                                preDelta++;
+                        }
+                        preEnergy = Convert.ToDouble(tb_MCEnergy.Value) * preDelta; //calc pre-change energy
+
+                    //do
+                    //{
+                        randC = _rand.Next(0, Convert.ToInt32(eachColor.Count));
+                    //}
+                    //while (forbiddenColors.Contains(eachColor[randC]));  //get random color from available states
+
+                        foreach (Color c in tempColors) //calc post-change delta
+                        {
+                            if (c != eachColor[randC])
+                                postDelta++;
+                        }
+                        postEnergy = Convert.ToDouble(tb_MCEnergy.Value) * postDelta; //calc post-change energy
+                        energyDelta = postEnergy - preEnergy; //calc delta
+                        if (energyDelta <= 0) //probability
+                            nextcolor[allPoints[randPt].X, allPoints[randPt].Y] = eachColor[randC];
+
+                        preDelta = 0;
+                        preEnergy = 0;
+                        postDelta = 0;
+                        postEnergy = 0;
+                        tempColors.Clear();
                     }
-                    preEnergy = Convert.ToDouble(tb_MCEnergy.Value) * preDelta; //calc pre-change energy
-
-                    randC = _rand.Next(0, Convert.ToInt32(eachColor.Count)); //get random color from available states
-
-                    foreach (Color c in tempColors) //calc post-change delta
-                    {
-                        if (c != eachColor[randC])
-                            postDelta++;
-                    }
-                    postEnergy = Convert.ToDouble(tb_MCEnergy.Value) * postDelta; //calc post-change energy
-                    energyDelta = postEnergy - preEnergy; //calc delta
-                    if (energyDelta <= 0) //probability
-                        nextcolor[allPoints[randPt].X, allPoints[randPt].Y] = eachColor[randC];
-
-                    preDelta = 0;
-                    preEnergy = 0;
-                    postDelta = 0;
-                    postEnergy = 0;
-                    tempColors.Clear();
                     allPoints.RemoveAt(randPt);
-                    WriteBoard();
-                    mcCheckedCells++;
-                    lab_MCCheckedCells.Text = "Checked cells: " + Convert.ToString(mcCheckedCells);
+                    //WriteBoard();
+                    //mcCheckedCells++;
+                    //lab_MCCheckedCells.Text = "Checked cells: " + Convert.ToString(mcCheckedCells);
                 }
                 else
                 {
                     GenerateNewPoints();
+                    WriteBoard();
                     mcCurrentStep++;
                     lab_MCCurrentStep.Text = "Finished steps: " + Convert.ToString(mcCurrentStep);
                 }
