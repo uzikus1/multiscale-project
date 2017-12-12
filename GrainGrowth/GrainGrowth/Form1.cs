@@ -43,7 +43,7 @@ namespace GrainGrowth
         Color randomColor;
         /*, mostFrequentList*/
         uint table_iter, rand_num;
-        int rand_x, rand_y, spotAmount, mcCurrentStep, mcCheckedCells;
+        int rand_x, rand_y, spotAmount, mcCurrentStep;
         bool isFinished, isActive;
         bool[] currentNeigh, mooreNeigh, nearestNeigh, furtherNeigh;
         Color mostFrequent = new Color();
@@ -138,9 +138,7 @@ namespace GrainGrowth
             table_iter = 0;
             spotAmount = 0;
             mcCurrentStep = 0;
-            mcCheckedCells = 0;
             lab_MCCurrentStep.Text = "Finished steps: 0";
-            lab_MCCheckedCells.Text = "Checked cells: 0";
             tempColors = new List<Color>();
             eachColor = new List<Color>();
             mostFrequentList = new List<ColorCount>();
@@ -1023,9 +1021,7 @@ namespace GrainGrowth
                 Size size = new Size(Convert.ToInt32(sizeX), Convert.ToInt32(sizeY));
                 DrawingBoard.Size = size;
                 mcCurrentStep = 0;
-                mcCheckedCells = 0;
                 lab_MCCurrentStep.Text = "Finished steps: 0";
-                lab_MCCheckedCells.Text = "Checked cells: 0";
             }
         }
         private void FromTXTToolStripMenuItem_Click(object sender, EventArgs e) 
@@ -1072,9 +1068,7 @@ namespace GrainGrowth
                     
                 }
                 mcCurrentStep = 0;
-                mcCheckedCells = 0;
                 lab_MCCurrentStep.Text = "Finished steps: 0";
-                lab_MCCheckedCells.Text = "Checked cells: 0";
                 WriteBoard();
             }
         }
@@ -1163,7 +1157,7 @@ namespace GrainGrowth
                     randPt = _rand.Next(0, allPoints.Count);
                     if (!forbiddenColors.Contains(nextcolor[allPoints[randPt].X, allPoints[randPt].Y]))
                     {
-                    FindBorderNeighbor(mooreNeigh, allPoints[randPt].X, allPoints[randPt].Y, true); // get tempColors
+                        FindBorderNeighbor(mooreNeigh, allPoints[randPt].X, allPoints[randPt].Y, true); // get tempColors
                         foreach (Color c in tempColors) //calc pre-change delta
                         {
                             if (c != color[allPoints[randPt].X, allPoints[randPt].Y])
@@ -1171,11 +1165,7 @@ namespace GrainGrowth
                         }
                         preEnergy = Convert.ToDouble(tb_MCEnergy.Value) * preDelta; //calc pre-change energy
 
-                    //do
-                    //{
                         randC = _rand.Next(0, Convert.ToInt32(eachColor.Count));
-                    //}
-                    //while (forbiddenColors.Contains(eachColor[randC]));  //get random color from available states
 
                         foreach (Color c in tempColors) //calc post-change delta
                         {
@@ -1215,6 +1205,145 @@ namespace GrainGrowth
         {
             while (isActive)
                 SingleCell();
+        }
+
+        //recrystallization
+        private void Btn_RecrystStart_Click(object sender, EventArgs e)
+        {
+            if (isRecrystActive)
+                isRecrystActive = false;
+            else
+                isRecrystActive = true;
+            recrystThread = new Thread(RecRun);
+            recrystThread.Start();
+        }
+        private void Btn_RecrystDistribute_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < sizeX; i++)
+                for (int j = 0; j < sizeY; j++)
+                {              
+                    if(rb_EnergyDistHetero.Checked)
+                    {
+                        for (int m = i - 1; m <= i + 1; m++)
+                            for (int n = j - 1; n <= j + 1; n++)
+                            {
+                                if (m >= 0 && m < sizeX && n >= 0 && n < sizeY)
+                                    if (mooreNeigh[table_iter])
+                                        tempColors.Add(color[m, n]);
+                                table_iter++;
+                            }
+                        table_iter = 0;
+                        tempColors = tempColors.Distinct().ToList();
+                        if (tempColors.Count >= 2) //on border
+                            energy[i, j] = Convert.ToInt32(tb_EnergyDistHeteroEdge.Value);
+                        else //inside
+                            energy[i, j] = Convert.ToInt32(tb_EnergyDistHeteroInside.Value);
+                        tempColors.Clear();
+                    }
+                    else
+                    {
+                        energy[i,j] = Convert.ToInt32(tb_EnergyDistHomo.Value);
+                    }
+                }
+            WriteEnergyBoard();
+        }
+        private void RecSingleCell()
+        {
+            int randPt, randC;
+            double preEnergy = 0;
+            double preDelta = 0;
+            double postEnergy = 0;
+            double postDelta = 0;
+            double energyDelta = 0;
+            if(recrystCurrentStep < Convert.ToInt32(tb_RecrystIter.Value))
+            {
+                if(allPoints.Count > 0) //if every cell checked
+                {
+                    randPt = _rand.Next(0, allPoints.Count); //get random cell
+                    if (!forbiddenColors.Contains(nextcolor[allPoints[randPt].X, allPoints[randPt].Y]))
+                    {
+                        FindRandomNeighbors(allPoints[randPt].X, allPoints[randPt].Y); //get random neighbors
+                        foreach (Color c in tempColors) //calc pre-change delta
+                        {
+                            if (c != color[allPoints[randPt].X, allPoints[randPt].Y])
+                                preDelta++;
+                        }
+                        preEnergy = Convert.ToDouble(tb_MCEnergy.Value) * preDelta /* + Hi */;
+
+                        randC = _rand.Next(0, Convert.ToInt32(eachColor.Count));
+
+                        foreach (Color c in tempColors) //calc post-change delta
+                        {
+                            if (c != eachColor[randC])
+                                postDelta++;
+                        }
+                        postEnergy = Convert.ToDouble(tb_MCEnergy.Value) * postDelta; //calc post-change energy
+                        energyDelta = postEnergy - preEnergy; //calc delta
+                        if (energyDelta <= 0) //probability
+                        {
+                            nextcolor[allPoints[randPt].X, allPoints[randPt].Y] = eachColor[randC];
+                            //energy change?
+                        }
+                        preDelta = 0;
+                        preEnergy = 0;
+                        postDelta = 0;
+                        postEnergy = 0;
+                        tempColors.Clear();
+                    }
+                    allPoints.RemoveAt(randPt);
+
+                }
+                else //iteration is done - reset things, add new nuclei based upon 
+                {
+                    GenerateNewPoints(); 
+                    recrystCurrentStep++;
+                    if (rb_NucleationConstant.Checked)
+                    {
+                        InsertNewNuclei(Convert.ToInt32(tb_NucleationConstant.Value));
+                    }
+                    else if (rb_NucleationIncreasing.Checked)
+                    {
+                        InsertNewNuclei(Convert.ToInt32(tb_NucleationIncreasingBase.Value) + recrystCurrentStep * Convert.ToInt32(tb_NucleationIncreasingIncrease.Value));
+                    }
+                }
+            }
+            else
+            {
+                isRecrystActive = false;
+            }
+            
+
+            //get nucleation module
+            //get random cell
+            //get random neighborhood?
+            //check if recrystallized: (will omit this - might check every cell once)
+            //yes -> proceed below
+            //{
+            //get preenergy
+            //reorientate
+            //get postenergy
+            //check if energy higher:
+            //yes -> accept reorientation
+            //no -> ignore - mark as checked though
+            //}
+            //check if every cell was checked:
+            //no -> go back to step 3
+            //yes -> check if condition stop is full
+            //yes - finish
+            //no - step++, continue
+        }
+        private void RecRun()
+        {
+            while (isRecrystActive)
+                RecSingleCell();
+        }
+        private void FindRandomNeighbors(int a, int b)
+        {
+
+        }
+        private void InsertNewNuclei(int amount)
+        {
+
         }
 
         //misc
