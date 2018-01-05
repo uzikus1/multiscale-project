@@ -101,7 +101,7 @@
             this.rad_Random = new System.Windows.Forms.RadioButton();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.tb_NucleationAtBegin = new System.Windows.Forms.NumericUpDown();
             this.label13 = new System.Windows.Forms.Label();
             this.tb_NucleationIncreasingIncrease = new System.Windows.Forms.NumericUpDown();
             this.label12 = new System.Windows.Forms.Label();
@@ -131,6 +131,7 @@
             this.label17 = new System.Windows.Forms.Label();
             this.pnl_RecrystBox = new System.Windows.Forms.Panel();
             this.RecrystBoard = new System.Windows.Forms.PictureBox();
+            this.lab_RecrystCurrentStep = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.DrawingBoard)).BeginInit();
             this.pnl_PBox.SuspendLayout();
             this.ms_menu.SuspendLayout();
@@ -154,7 +155,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.tb_Random)).BeginInit();
             this.groupBox4.SuspendLayout();
             this.groupBox8.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_NucleationAtBegin)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_NucleationIncreasingIncrease)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_NucleationIncreasingBase)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_NucleationConstant)).BeginInit();
@@ -919,7 +920,7 @@
             this.groupBox6.Controls.Add(this.rb_BordersNone);
             this.groupBox6.Location = new System.Drawing.Point(590, 536);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(206, 162);
+            this.groupBox6.Size = new System.Drawing.Size(206, 196);
             this.groupBox6.TabIndex = 44;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Grain borders";
@@ -1002,7 +1003,7 @@
             // 
             // groupBox8
             // 
-            this.groupBox8.Controls.Add(this.numericUpDown1);
+            this.groupBox8.Controls.Add(this.tb_NucleationAtBegin);
             this.groupBox8.Controls.Add(this.label13);
             this.groupBox8.Controls.Add(this.tb_NucleationIncreasingIncrease);
             this.groupBox8.Controls.Add(this.label12);
@@ -1020,13 +1021,13 @@
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "Nucleation - No. of nuclei";
             // 
-            // numericUpDown1
+            // tb_NucleationAtBegin
             // 
-            this.numericUpDown1.Location = new System.Drawing.Point(124, 188);
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(80, 20);
-            this.numericUpDown1.TabIndex = 10;
-            this.numericUpDown1.Value = new decimal(new int[] {
+            this.tb_NucleationAtBegin.Location = new System.Drawing.Point(124, 188);
+            this.tb_NucleationAtBegin.Name = "tb_NucleationAtBegin";
+            this.tb_NucleationAtBegin.Size = new System.Drawing.Size(80, 20);
+            this.tb_NucleationAtBegin.TabIndex = 10;
+            this.tb_NucleationAtBegin.Value = new decimal(new int[] {
             100,
             0,
             0,
@@ -1276,13 +1277,14 @@
             // 
             // groupBox11
             // 
+            this.groupBox11.Controls.Add(this.lab_RecrystCurrentStep);
             this.groupBox11.Controls.Add(this.btn_RecrystStart);
             this.groupBox11.Controls.Add(this.btn_RecrystDistribute);
             this.groupBox11.Controls.Add(this.tb_RecrystIter);
             this.groupBox11.Controls.Add(this.label17);
             this.groupBox11.Location = new System.Drawing.Point(802, 620);
             this.groupBox11.Name = "groupBox11";
-            this.groupBox11.Size = new System.Drawing.Size(210, 78);
+            this.groupBox11.Size = new System.Drawing.Size(210, 112);
             this.groupBox11.TabIndex = 48;
             this.groupBox11.TabStop = false;
             this.groupBox11.Text = "Recrystallization";
@@ -1345,6 +1347,15 @@
             this.RecrystBoard.Size = new System.Drawing.Size(450, 450);
             this.RecrystBoard.TabIndex = 0;
             this.RecrystBoard.TabStop = false;
+            // 
+            // lab_RecrystCurrentStep
+            // 
+            this.lab_RecrystCurrentStep.AutoSize = true;
+            this.lab_RecrystCurrentStep.Location = new System.Drawing.Point(44, 74);
+            this.lab_RecrystCurrentStep.Name = "lab_RecrystCurrentStep";
+            this.lab_RecrystCurrentStep.Size = new System.Drawing.Size(160, 13);
+            this.lab_RecrystCurrentStep.TabIndex = 4;
+            this.lab_RecrystCurrentStep.Text = "Finished recrystallization steps: 0";
             // 
             // GrainGrowth
             // 
@@ -1410,7 +1421,7 @@
             this.groupBox4.PerformLayout();
             this.groupBox8.ResumeLayout(false);
             this.groupBox8.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_NucleationAtBegin)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_NucleationIncreasingIncrease)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_NucleationIncreasingBase)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_NucleationConstant)).EndInit();
@@ -1506,7 +1517,7 @@
         private System.Windows.Forms.RadioButton rad_Random;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.GroupBox groupBox8;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.NumericUpDown tb_NucleationAtBegin;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.NumericUpDown tb_NucleationIncreasingIncrease;
         private System.Windows.Forms.Label label12;
@@ -1536,6 +1547,7 @@
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Panel pnl_RecrystBox;
         private System.Windows.Forms.PictureBox RecrystBoard;
+        private System.Windows.Forms.Label lab_RecrystCurrentStep;
     }
 }
 

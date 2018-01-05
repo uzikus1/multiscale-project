@@ -57,3 +57,13 @@ F:\Pobrane\multiscale-project-temp (1)\multiscale-project-temp\GrainGrowth\Grain
 F:\Pobrane\multiscale-project-temp (1)\multiscale-project-temp\GrainGrowth\GrainGrowth\obj\Debug\GrainGrowth.csproj.CoreCompileInputs.cache
 F:\Pobrane\multiscale-project-temp (1)\multiscale-project-temp\GrainGrowth\GrainGrowth\obj\Debug\GrainGrowth.exe
 F:\Pobrane\multiscale-project-temp (1)\multiscale-project-temp\GrainGrowth\GrainGrowth\obj\Debug\GrainGrowth.pdb
+C:\Users\uzikus\Dropbox\multiscale-project-temp (1)\multiscale-project-temp\GrainGrowth\GrainGrowth\bin\Debug\GrainGrowth.exe.config
+C:\Users\uzikus\Dropbox\multiscale-project-temp (1)\multiscale-project-temp\GrainGrowth\GrainGrowth\bin\Debug\GrainGrowth.exe
+C:\Users\uzikus\Dropbox\multiscale-project-temp (1)\multiscale-project-temp\GrainGrowth\GrainGrowth\bin\Debug\GrainGrowth.pdb
+C:\Users\uzikus\Dropbox\multiscale-project-temp (1)\multiscale-project-temp\GrainGrowth\GrainGrowth\obj\Debug\GrainGrowth.csprojResolveAssemblyReference.cache
+C:\Users\uzikus\Dropbox\multiscale-project-temp (1)\multiscale-project-temp\GrainGrowth\GrainGrowth\obj\Debug\GrainGrowth.GrainGrowth.resources
+C:\Users\uzikus\Dropbox\multiscale-project-temp (1)\multiscale-project-temp\GrainGrowth\GrainGrowth\obj\Debug\GrainGrowth.Properties.Resources.resources
+C:\Users\uzikus\Dropbox\multiscale-project-temp (1)\multiscale-project-temp\GrainGrowth\GrainGrowth\obj\Debug\GrainGrowth.csproj.GenerateResource.Cache
+C:\Users\uzikus\Dropbox\multiscale-project-temp (1)\multiscale-project-temp\GrainGrowth\GrainGrowth\obj\Debug\GrainGrowth.csproj.CoreCompileInputs.cache
+C:\Users\uzikus\Dropbox\multiscale-project-temp (1)\multiscale-project-temp\GrainGrowth\GrainGrowth\obj\Debug\GrainGrowth.exe
+C:\Users\uzikus\Dropbox\multiscale-project-temp (1)\multiscale-project-temp\GrainGrowth\GrainGrowth\obj\Debug\GrainGrowth.pdb
