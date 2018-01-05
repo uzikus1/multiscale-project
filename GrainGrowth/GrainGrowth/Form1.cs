@@ -1395,7 +1395,7 @@ namespace GrainGrowth
             for (int g = 0; g < amount; g++)
             {
                 //do randomColor = Color.FromArgb(_rand.Next(256), _rand.Next(256), _rand.Next(256));
-                do randomColor = Color.FromArgb(_rand.Next(1,257), 0, 0);
+                do randomColor = Color.FromArgb(_rand.Next(1,256), 0, 0);
                 while (randomColor == defaultColor && randomColor == inclusionColor && eachColor.Contains(randomColor) && forbiddenColors.Contains(randomColor));
                 eachColor.Add(randomColor);
                 recrystColors.Add(randomColor);
